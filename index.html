@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Evvel Zaman: Türk masallarının okunabildiği, alıntı ve inceleme paylaşılabilen interaktif masal derlemesi.">
+  <title>Evvel Zaman</title>
+
+  <!-- Harici CSS dosyası -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <div class="header-top">
+      <div class="logo-area"><h1>Evvel Zaman</h1><p> Türk Masalları Derlemesi</p></div>
+      <div class="controls-area">
+        <button type="button" class="btn-action" id="btn-decrease" title="Yazıyı Küçült">A-</button>
+        <button type="button" class="btn-action" id="btn-increase" title="Yazıyı Büyüt">A+</button>
+        <button type="button" class="btn-action" id="btn-theme"><span id="theme-label">Gece Modu</span></button>
+        <button type="button" class="btn-action" id="btn-profile">👤 Profilim</button>
+      </div>
+    </div>
+    <div class="header-filters">
+      <div class="search-box"><input type="text" id="search-input" placeholder="Masal veya anahtar kelime ara..." aria-label="Masal ara"></div>
+      <div class="category-group" id="category-filters">
+        <button type="button" class="btn-chip active" data-category="Tümü">Tümü</button>
+        <button type="button" class="btn-chip" data-category="Aşk ve Arayış">Aşk ve Arayış</button>
+        <button type="button" class="btn-chip" data-category="Sadakat ve Sevgi">Sadakat ve Sevgi</button>
+        <button type="button" class="btn-chip" data-category="Kıskançlık ve Sabır">Kıskançlık ve Sabır</button>
+        <button type="button" class="btn-chip" data-category="Olağanüstü Varlıklar">Olağanüstü Varlıklar</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main-layout">
+  <section class="catalog-area">
+    <div class="catalog-header" id="count-info">8 Masal Listeleniyor</div>
+    <div class="catalog-panel" id="tales-list"></div>
+  </section>
+
+  <article class="reader-panel" id="reader-view">
+    <div class="reader-header">
+      <span class="reader-category" id="view-category">Kategori</span>
+      <h2 class="reader-title" id="view-title">Masal Başlığı</h2>
+      <div class="reader-meta-row"><span id="view-time"></span><span id="view-theme-motif"></span></div>
+      <div class="status-row" id="reader-status-controls" aria-label="Okuma durumu"></div>
+      <div class="status-note" id="reader-status-note"></div>
+    </div>
+    <div class="reader-content" id="view-text"></div>
+    <footer class="reader-footer"><strong>Kaynak:</strong> <span id="view-source"></span></footer>
+
+    <section class="section-box" id="quotes-section">
+      <h3 class="section-title">Bu Masaldan Alıntılar</h3>
+      <div id="tale-quotes"></div>
+    </section>
+
+    <section class="section-box" id="reviews-section">
+      <h3 class="section-title">Masal İncelemeleri</h3>
+      <div class="rating-row">
+        <div class="stars" id="rating-stars" aria-label="Puan ver"></div>
+        <span id="rating-average" class="muted">Henüz puan verilmedi</span>
+      </div>
+      <form id="review-form">
+        <label for="review-text" class="muted">Bu masal sana ne hissettirdi? Kültürel motifleri nasıl buldun?</label>
+        <textarea id="review-text" class="form-control" maxlength="600" placeholder="Masal hakkındaki düşüncelerini yaz..." required></textarea>
+        <button class="primary-btn" type="submit">İncelemeyi Kaydet</button>
+      </form>
+      <div id="tale-reviews"></div>
+    </section>
+  </article>
+
+  <section class="profile-panel hidden" id="profile-panel">
+    <div class="profile-heading">
+      <div class="avatar" id="profile-avatar-display">🧚</div>
+      <div><h2>Masalcı Profilim</h2><p class="muted">Okuma yolculuğun ve kişisel paylaşımların</p></div>
+      <button type="button" class="small-btn" id="btn-back-reader">Masallara dön</button>
+    </div>
+    <div class="profile-bar">
+      <label class="muted" for="username-input">Kullanıcı adı</label>
+      <input id="username-input" maxlength="24" placeholder="Masalcı adı">
+      <label class="muted" for="avatar-select">Avatar</label>
+      <select id="avatar-select" class="form-control" style="width:auto;margin:0">
+        <option value="🧚">🧚 Peri Kızı</option>
+        <option value="🤴">🤴 Şehzade</option>
+        <option value="🦹">🦹 Kırk Haramiler</option>
+        <option value="👑">👑 Padişah</option>
+        <option value="🕊️">🕊️ Turna</option>
+        <option value="🌹">🌹 Gül</option>
+      </select>
+      <button class="primary-btn" id="save-profile" type="button">Profili Kaydet</button>
+    </div>
+    <div class="profile-stats">
+      <div class="stat"><strong id="stat-read">0/8</strong><span>Okunan masal</span></div>
+      <div class="stat"><strong id="stat-rate">%0</strong><span>Okuma oranı</span></div>
+      <div class="stat"><strong id="stat-quotes">0</strong><span>Paylaşılan alıntı</span></div>
+      <div class="stat"><strong id="stat-reviews">0</strong><span>Yazılan inceleme</span></div>
+    </div>
+    <div class="tabs" id="profile-tabs">
+      <button class="tab-btn active" data-tab="reading">Okuma Listem</button>
+      <button class="tab-btn" data-tab="quotes">Alıntılarım</button>
+      <button class="tab-btn" data-tab="reviews">İncelemelerim</button>
+    </div>
+    <div class="tab-content" id="profile-tab-content"></div>
+  </section>
+</main>
+
+<div id="modal-root"></div>
+<div id="toast-root" aria-live="polite"></div>
+
+<!-- Harici JavaScript dosyası (sayfa yüklendikten sonra çalışır) -->
+<script src="script.js" defer></script>
+</body>
+</html>
